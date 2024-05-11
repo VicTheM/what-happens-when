@@ -367,6 +367,24 @@ This send and receive happens multiple times following the TCP connection flow:
    * The other sides ACKs the FIN packet and sends its own FIN
    * The closer acknowledges the other side's FIN with an ACK
 
+Firewall, Load balancing and Proxy server
+-----------------------------------------
+Before the TLS handshake, when our browser gets the IP address (our destination)
+and we go to the internet trying to access that computer on the internet, more
+often than not, in a large setup like google that IP will belong to a load balancer.
+
+* We get to the load balancer that has a firewall, the firewall examines us, confirms
+  if our IP is an allowable on and if our request is not among google's list of prohibited
+  requests. If we satisfy the requirements of the firewall, we are then allowed access into
+  the load balancer
+
+* Based on how loaded all the computers serving google's homepage is, the load balancer will
+  send us to a proxy server which helps send our request to the least loaded web server (There
+  are often many identical distributed servers running in parallel to add redundancy and improve
+  reliability of a software system)
+
+* The proxy server keeps us at the door and go fetch our request for us.
+
 TLS handshake
 -------------
 * The client computer sends a ``ClientHello`` message to the server with its
